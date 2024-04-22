@@ -8,7 +8,6 @@ import org.json.simple.parser.ParseException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +15,10 @@ import java.util.Map;
 
 public class JsonUtil {
     public static List<Map<String, String>> readJsonData(String fileName) throws IOException, ParseException {
-        // Use the ClassLoader to find the file
-        URL resourceUrl = ClassLoader.getSystemResource(fileName);
-        if (resourceUrl == null) {
-            throw new RuntimeException("Cannot find resource: " + fileName);
-        }
-        File file = new File(resourceUrl.getFile());
+        // Get the current working directory
+        String currentDir = System.getProperty("user.dir");
+
+        File file = new File(currentDir + "/src/main/java/" + fileName);
 
         FileReader reader = new FileReader(file);
         JSONParser jsonParser = new JSONParser();

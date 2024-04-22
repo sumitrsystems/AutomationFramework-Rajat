@@ -5,17 +5,14 @@ import org.apache.poi.ss.usermodel.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Iterator;
 
 public class ExcelUtil {
     public static Object[][] readExcelData(String fileName, String sheetName) {
-        // Use the ClassLoader to find the file
-        URL resourceUrl = ClassLoader.getSystemResource(fileName);
-        if (resourceUrl == null) {
-            throw new RuntimeException("Cannot find resource: " + fileName);
-        }
-        File file = new File(resourceUrl.getFile());
+        // Get the current working directory
+        String currentDir = System.getProperty("user.dir");
+
+        File file = new File(currentDir + "/src/main/java/" + fileName);
 
         try (FileInputStream fis = new FileInputStream(file)) {
             Workbook workbook = WorkbookFactory.create(fis);
