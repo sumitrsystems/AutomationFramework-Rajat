@@ -1,5 +1,9 @@
 package utility;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,11 +12,10 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class TestUtility {
@@ -112,4 +115,43 @@ public class TestUtility {
 
         return waitForElement(successMessageLocator, 30);
     }
+
+    public static void writeDataToExcel(String filePath, String sheetName, Map<String, String> data) throws IOException {
+        FileInputStream fis = new FileInputStream(filePath);
+        Workbook workbook = new XSSFWorkbook(fis);
+        Sheet sheet = workbook.getSheet(sheetName);
+
+        // Create data row at the end of the sheet
+        int lastRowNum = sheet.getLastRowNum();
+        Row dataRow = sheet.createRow(lastRowNum + 1);
+        dataRow.createCell(0).setCellValue(data.get("email"));
+        dataRow.createCell(1).setCellValue(data.get("password"));
+
+        // Write the output to a file
+        try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            workbook.write(fileOut);
+        }
+        fis.close();
+    }
+
+    public static int getRowCountInExcel(String filePath, String sheetName) throws IOException {
+        FileInputStream fis = new FileInputStream(filePath);
+        Workbook workbook = new XSSFWorkbook(fis);
+        Sheet sheet = workbook.getSheet(sheetName);
+
+        int rowCount = 0;
+        for (Row row : sheet) {
+            // Assuming email is in the first cell and password is in the second cell of each row
+            if (row.getCell(0) != null && row.getCell(1) != null &&
+                    !row.getCell(0).getStringCellValue().isEmpty() && !row.getCell(1).getStringCellValue().isEmpty()) {
+                rowCount++;
+            } else {
+                break;
+            }
+        }
+
+        fis.close();
+        return rowCount;
+    }
+
 }

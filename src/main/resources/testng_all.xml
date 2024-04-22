@@ -33,4 +33,10 @@
             <class name="test.WebTablesTests" />
         </classes>
     </test>
+    <test name="TestWriteDataToFiles">
+        <classes>
+            <class name="test.ExcelWriteTest" />
+            <class name="test.JsonWriteTest" />
+        </classes>
+    </test>
 </suite>
