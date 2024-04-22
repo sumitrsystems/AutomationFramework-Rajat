@@ -1,0 +1,36 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="utility.TestListener" />
+    </listeners>
+    <test name="LoginWithExcel">
+        <classes>
+            <class name="test.LoginWithExcelDataProviderTests" />
+        </classes>
+    </test>
+    <test name="LoginWithJson">
+        <classes>
+            <class name="test.LoginWithJsonDataProviderTests" />
+        </classes>
+    </test>
+    <test name="TestRadioButton">
+        <classes>
+            <class name="test.RadioButtonTests" />
+        </classes>
+    </test>
+    <test name="TestCheckBoxButton">
+        <classes>
+            <class name="test.CheckBoxTests" />
+        </classes>
+    </test>
+    <test name="TestFileUpload">
+        <classes>
+            <class name="test.FileUploadTests" />
+        </classes>
+    </test>
+    <test name="TestWebTables">
+        <classes>
+            <class name="test.WebTablesTests" />
+        </classes>
+    </test>
+</suite>
