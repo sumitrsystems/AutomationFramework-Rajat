@@ -39,4 +39,9 @@
             <class name="test.JsonWriteTest" />
         </classes>
     </test>
+    <test name="TestSelectDropDownValues">
+        <classes>
+            <class name="test.DropDownValueSelectTest" />
+        </classes>
+    </test>
 </suite>
