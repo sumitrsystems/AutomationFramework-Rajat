@@ -21,7 +21,19 @@ To set up this project, you need:
 
 ## Running Tests
 
-Tests are located in the `src/test/java` directory. You can run them from your IDE or from the command line using the `mvn test` command.
+Tests can be run in two ways:
+
+1. **Through Maven:** You can run the tests through the command line by navigating to the project directory and running the `mvn test` command.
+
+2. **Through TestNG:** If you are using an IDE like IntelliJ IDEA or Eclipse, you can run the tests through the `testng.xml` file. Here's how you can do it:
+
+   - Open the `testng.xml` file in your IDE.
+   - Right-click anywhere in the file.
+   - Click on `Run 'testng.xml'`.
+   
+   This will run all the test methods defined in the `testng.xml` file.
+
+Remember to ensure that all your dependencies are correctly installed and that your environment variables are set up correctly before running the tests.
 
 ## Data Providers
 
