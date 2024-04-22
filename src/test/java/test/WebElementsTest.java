@@ -23,7 +23,7 @@ public class WebElementsTest extends BaseTest {
         testUtility.loadPropertiesFile("src/main/resources/config.properties");
     }
 
-    @Test(dataProvider = "excelData", dataProviderClass = ExcelDataProvider.class)
+    @Test(dataProvider = "excelDataFirstRow", dataProviderClass = ExcelDataProvider.class)
     public void testButton(String email, String password) {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.enterEmail(email);
@@ -36,7 +36,7 @@ public class WebElementsTest extends BaseTest {
         Assert.assertEquals(actualUrl, expectedUrl, "Actual URL after login is not as expected");
     }
 
-    @Test(dataProvider = "jsonData", dataProviderClass = JsonDataProvider.class)
+    @Test(dataProvider = "jsonDataFirstSet", dataProviderClass = JsonDataProvider.class)
     public void testText(String email, String password) {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.enterEmail(email);
