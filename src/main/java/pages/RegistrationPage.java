@@ -26,7 +26,7 @@ public class RegistrationPage {
     }
 
     public void selectFruits(String fruitName, int index) {
-        driver.get("http://jsbin.com/osebed/2");
+        driver.get("https://jsbin.com/osebed/2");
         wait.until(ExpectedConditions.visibilityOfElementLocated(fruitsDropdownLocator));
         Select fruits = new Select(driver.findElement(fruitsDropdownLocator));
         fruits.selectByVisibleText(fruitName);
