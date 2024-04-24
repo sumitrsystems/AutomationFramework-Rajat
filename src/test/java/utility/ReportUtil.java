@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.apache.commons.io.FileUtils;
 
 public class ReportUtil {
     private static ReportUtil instance = null;
@@ -33,6 +34,7 @@ public class ReportUtil {
         if (instance == null) {
             instance = new ReportUtil(driver);
         }
+        instance.driver = driver;
         return instance;
     }
 
@@ -47,15 +49,9 @@ public class ReportUtil {
             test.fail("Test Case Failed is " + result.getName());
             test.fail(result.getThrowable());
 
-            // Take screenshot
-            if (driver != null) {
-                File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-                Path destination = Paths.get("Screenshots", result.getName() + ".png");
-                Files.copy(screenshot.toPath(), destination);
-                test.addScreenCaptureFromPath(destination.toString());
-            } else {
-                System.out.println("Driver is not initialized");
-            }
+            // Capture screenshot
+            String screenshotPath = captureScreenshot(result.getName());
+            test.addScreenCaptureFromPath(screenshotPath);
         } else if (result.getStatus() == ITestResult.SKIP) {
             test.skip("Test Case Skipped is " + result.getName());
         }
@@ -75,5 +71,17 @@ public class ReportUtil {
         } else {
             throw new IllegalStateException("ExtentReports not initialized. Call getInstance() before flush().");
         }
+    }
+
+    public String captureScreenshot(String testName) throws IOException {
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        String directoryPath = "src/main/resources/screenshots/";
+        File directory = new File(directoryPath);
+        if (!directory.exists()){
+            directory.mkdirs();
+        }
+        String screenshotPath = directoryPath + testName + ".png";
+        FileUtils.copyFile(screenshot, new File(screenshotPath));
+        return screenshotPath;
     }
 }
