@@ -61,3 +61,26 @@ If you are interested in contributing to the project, you can clone the reposito
 ## License
 
 This project is licensed under the MIT License. The details of the license can be found in the `LICENSE.md` file.
+
+## Running Tests through Jenkins
+
+1. Download the `jenkins.war` file from the official Jenkins website.
+
+2. Navigate to the directory where the `jenkins.war` file is downloaded.
+
+3. Run the following command to start Jenkins:
+
+   ```bash
+   java -jar jenkins.war --httpPort=9191
+
+This command will start Jenkins on your local machine at port 9191.  
+Open a web browser and go to http://localhost:9191. You should see the Jenkins dashboard.  
+If you're running Jenkins for the first time, it will ask you to unlock Jenkins using an admin password. The console log will specify the location of the initial admin password. Copy the password from the mentioned location and paste it in the Jenkins dashboard.  
+Install the suggested plugins and create an admin user.  
+Once Jenkins is set up, click on New Item from the dashboard to create a new job.  
+Enter a name for the job, select Freestyle project and click OK.  
+In the job configuration page, go to the Source Code Management section and select Git. Enter the repository URL in the Repository URL field.  
+In the Build section, click on Add build step and select Invoke top-level Maven targets.  
+In the Goals field, enter test to run the tests.  
+Click Save.  
+To run the job, click Build Now from the job page.
